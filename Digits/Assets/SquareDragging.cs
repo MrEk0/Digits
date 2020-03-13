@@ -26,6 +26,7 @@ public class SquareDragging : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
     public void OnBeginDrag(PointerEventData eventData)
     {
         canvasGroup.blocksRaycasts = false;
+        startPos = transform.localPosition;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -51,13 +52,30 @@ public class SquareDragging : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
 
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log(eventData.pointerDrag.gameObject);
         if (eventData.pointerDrag.GetComponent<SquareDragging>() != null)
         {
-            Destroy(eventData.pointerDrag.gameObject);
+            SquareDragging square = eventData.pointerDrag.GetComponent<SquareDragging>();
 
-            ChangeText();
-        }
-      
+            if (currentNumber == square.GetNumber())
+            {
+                Destroy(square.gameObject);
+
+                ChangeText();
+            }
+            else
+            {
+                square.BackToStartPosition();
+            }
+        }    
+    }
+
+    public int GetNumber()
+    {
+        return Convert.ToInt32(digitText.text);
+    }
+
+    public void BackToStartPosition()
+    {
+        transform.localPosition = startPos;
     }
 }
