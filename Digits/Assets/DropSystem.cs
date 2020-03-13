@@ -9,12 +9,12 @@ public class DropSystem : MonoBehaviour
 
     float timeSinceLastSpawn = Mathf.Infinity;
     List<Vector3> tilePositions;
-    List<int> takenTiles;
+    List<Vector3> takenTiles;
 
     private void Awake()
     {
         tilePositions = new List<Vector3>();
-        takenTiles = new List<int>();
+        takenTiles = new List<Vector3>();
 
         foreach (Transform child in transform)
         {
@@ -28,14 +28,23 @@ public class DropSystem : MonoBehaviour
         {
             int tileIndex = Random.Range(0, tilePositions.Count);
         
-            if (takenTiles.Contains(tileIndex))
+            if (takenTiles.Contains(tilePositions[tileIndex]))
                 return;
 
-            takenTiles.Add(tileIndex);
+            takenTiles.Add(tilePositions[tileIndex]);
             GameObject obj = Instantiate(squarePrefab, transform);
             obj.transform.localPosition = tilePositions[tileIndex];
             timeSinceLastSpawn = 0;
         }
         timeSinceLastSpawn += Time.deltaTime;
+    }
+
+    public void ReleaseTakenTile(Vector3 tilePos)
+    {
+        if (takenTiles.Contains(tilePos))
+        {
+            takenTiles.Remove(tilePos);
+            Debug.Log(takenTiles.Count);
+        }
     }
 }

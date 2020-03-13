@@ -58,6 +58,7 @@ public class SquareDragging : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
 
             if (currentNumber == square.GetNumber())
             {
+                square.gameObject.GetComponentInParent<DropSystem>().ReleaseTakenTile(square.GetStartPosition());
                 Destroy(square.gameObject);
 
                 ChangeText();
@@ -72,6 +73,11 @@ public class SquareDragging : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
     public int GetNumber()
     {
         return Convert.ToInt32(digitText.text);
+    }
+
+    public Vector3 GetStartPosition()
+    {
+        return startPos;
     }
 
     public void BackToStartPosition()
