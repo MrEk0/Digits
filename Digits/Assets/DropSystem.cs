@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DropSystem : MonoBehaviour
 {
-    [SerializeField] GameObject objectPrefab;
+    [SerializeField] GameObject squarePrefab;
     [SerializeField] float timeBetweenSpawns = 10f;
 
     float timeSinceLastSpawn = Mathf.Infinity;
@@ -32,7 +32,7 @@ public class DropSystem : MonoBehaviour
                 return;
 
             takenTiles.Add(tileIndex);
-            GameObject obj = Instantiate(objectPrefab, transform);
+            GameObject obj = Instantiate(squarePrefab, transform);
             obj.transform.localPosition = tilePositions[tileIndex];
             timeSinceLastSpawn = 0;
         }

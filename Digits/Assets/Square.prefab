@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6262330568787643218}
   - component: {fileID: 6262330568787643216}
   - component: {fileID: 6262330568787643219}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,8 +166,10 @@ GameObject:
   - component: {fileID: 6262330570197051369}
   - component: {fileID: 6262330570197051375}
   - component: {fileID: 6262330570197051374}
-  m_Layer: 5
-  m_Name: Object
+  - component: {fileID: 5405261887860571429}
+  - component: {fileID: 1569041902512868037}
+  m_Layer: 0
+  m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -219,7 +221,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d47af3cd28f5e0489ed5419241e3f7d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9fe4f318418233b4ebd9ae05a5213073, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -229,3 +231,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5405261887860571429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6262330570197051368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15330a0dc60f91c4c8c97cf88f6940b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  digitText: {fileID: 6262330568787643219}
+--- !u!225 &1569041902512868037
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6262330570197051368}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
