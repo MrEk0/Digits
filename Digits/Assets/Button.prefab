@@ -260,7 +260,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_firstOverflowCharacterIndex: -1
@@ -322,6 +322,7 @@ GameObject:
   - component: {fileID: 1152569999102379849}
   - component: {fileID: 902756360530035909}
   - component: {fileID: 7375618666484416980}
+  - component: {fileID: 2309925152425324513}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -428,4 +429,29 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 902756360530035909}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2309925152425324513}
+        m_MethodName: MakeAPurchase
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2309925152425324513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6588477398230786321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 193e09bd711ca004ea831991a2c9ef32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberText: {fileID: 6163082850973709191}
+  priceText: {fileID: 2464211901776261836}
