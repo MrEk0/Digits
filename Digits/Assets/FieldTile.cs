@@ -25,7 +25,6 @@ public class FieldTile : MonoBehaviour, IDropHandler
             {
                 TileManager.Instance.RemoveTakenTilePosition(tilePos);
                 TileManager.Instance.AddTilePosition(transform.localPosition);
-                Debug.Log("RElease");
             }
         }
     }

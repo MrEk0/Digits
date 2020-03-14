@@ -41,7 +41,6 @@ public class TileManager : MonoBehaviour
                 return;
 
             takenTiles.Add(tilePositions[tileIndex]);
-            Debug.Log(takenTiles.Count);
             CheckFieldOccupancy();
 
             GameObject tile = Instantiate(squarePrefab, transform);
