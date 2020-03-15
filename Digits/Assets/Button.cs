@@ -28,8 +28,15 @@ public class Button : MonoBehaviour
 
     public void MakeAPurchase()
     {
-        numberOfPurchases++;
-        SetPrice();
+        bool isEnoughToBuy = ScoreSystem.Instance.CanBuyNewTile(price);
+
+        if (isEnoughToBuy)
+        {
+            //drop a tile
+            TileManager.Instance.SpawnBoughtTile(Number);
+            numberOfPurchases++;
+            SetPrice();
+        }
     }
 
     private void SetPrice()

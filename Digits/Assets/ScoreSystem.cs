@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Score : MonoBehaviour
+public class ScoreSystem : MonoBehaviour
 {
+    public static ScoreSystem Instance { get; private set; }
+
     [SerializeField] float firstPointNumber = 50f;
     [SerializeField] float scoreOffset = 25f;
 
@@ -18,22 +20,14 @@ public class Score : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+
         scoreText = GetComponent<TextMeshProUGUI>();
         scoreText.text = "Score: " + currentScore.ToString();
         additionalPoints = firstPointNumber;
     }
 
-    private void OnEnable()
-    {
-        TileManager.Instance.OnTileWereSummed += ChangeScoreText;
-    }
-
-    private void OnDisable()
-    {
-        TileManager.Instance.OnTileWereSummed -= ChangeScoreText;
-    }
-
-    private void ChangeScoreText()
+    public void ChangeScoreAfterSumming()
     {
         currentScore += additionalPoints;
 
@@ -46,5 +40,15 @@ public class Score : MonoBehaviour
         }
 
         scoreText.text = "Score: " + currentScore.ToString();    
+    }
+
+    public bool CanBuyNewTile(float price)
+    {
+        if (currentScore < price)
+            return false;
+
+        currentScore -= price;
+        scoreText.text = "Score: " + currentScore.ToString();
+        return true;
     }
 }
