@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class FieldTile : MonoBehaviour, IDropHandler
 {
-    RectTransform rectTransform;
+    private RectTransform rectTransform;
 
     private void Awake()
     {

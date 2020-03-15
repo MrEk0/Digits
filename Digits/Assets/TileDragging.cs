@@ -9,12 +9,12 @@ public class TileDragging : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
 {
     [SerializeField] TextMeshProUGUI digitText;
 
-    Vector3 startPos;
-    RectTransform thisRectTransform;
-    CanvasGroup canvasGroup;
-    Canvas canvas;
+    private Vector3 startPos;
+    private RectTransform thisRectTransform;
+    private CanvasGroup canvasGroup;
+    private Canvas canvas;
 
-    public float CurrentNumber { get; set; }
+    public int CurrentNumber { get; set; }
 
     private void Awake()
     {
@@ -66,7 +66,7 @@ public class TileDragging : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
             {
                 TileManager.Instance.AddAvailableTilePosition(tile.GetStartPosition());
                 Destroy(tile.gameObject);
-                ScoreSystem.Instance.ChangeScoreAfterSumming();
+                ScoreSystem.Instance.ChangeScoreAfterSumming(CurrentNumber);
                 ChangeText();
             }
             else

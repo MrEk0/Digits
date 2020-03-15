@@ -9,8 +9,8 @@ public class ScrollPanel : MonoBehaviour
     [SerializeField] GameObject buttonPrefab;
     [SerializeField] float numberOfButtons = 100;
 
-    RectTransform rectTransform;
-    VerticalLayoutGroup verticalLayout;
+    private RectTransform rectTransform;
+    private VerticalLayoutGroup verticalLayout;
 
     private void Start()
     {

@@ -1884,7 +1884,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   squarePrefab: {fileID: 6262330570197051368, guid: 18d3d9ccda5d0524aa16fb2ac54356a1,
     type: 3}
-  timeBetweenSpawns: 2
+  timeBetweenSpawns: 10
 --- !u!1 &839090573
 GameObject:
   m_ObjectHideFlags: 0

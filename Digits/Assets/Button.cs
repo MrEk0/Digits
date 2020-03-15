@@ -12,7 +12,7 @@ public class Button : MonoBehaviour
     private float numberOfPurchases=0;
     private float price;
 
-    public float Number { get; set; }
+    public int Number { get; set; }
 
     private void Start()
     {
@@ -28,12 +28,14 @@ public class Button : MonoBehaviour
 
     public void MakeAPurchase()
     {
+        if (!TileManager.Instance.IsThereAFreeTile())
+            return;
+
         bool isEnoughToBuy = ScoreSystem.Instance.CanBuyNewTile(price);
 
         if (isEnoughToBuy)
         {
-            //drop a tile
-            TileManager.Instance.SpawnBoughtTile(Number);
+            TileManager.Instance.SpawnATile(Number);
             numberOfPurchases++;
             SetPrice();
         }
