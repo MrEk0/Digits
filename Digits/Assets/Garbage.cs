@@ -9,7 +9,10 @@ public class Garbage : MonoBehaviour, IDropHandler
     {
         if(eventData.pointerDrag!=null)
         {
-            Destroy(eventData.pointerDrag);
+            GameObject tile = eventData.pointerDrag;
+            Vector3 tileStartPos = tile.GetComponent<TileDragging>().GetStartPosition();
+            TileManager.Instance.AddAvailableTilePosition(tileStartPos);
+            Destroy(tile);
         }
     }
 }
