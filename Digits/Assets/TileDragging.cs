@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 using System;
 
-public class SquareDragging : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler, IPointerDownHandler, IDropHandler
+public class TileDragging : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler, IPointerDownHandler, IDropHandler
 {
     [SerializeField] TextMeshProUGUI digitText;
 
@@ -14,11 +14,10 @@ public class SquareDragging : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
     CanvasGroup canvasGroup;
     Canvas canvas;
 
-    public int CurrentNumber { get; set; }
+    public float CurrentNumber { get; set; }
 
     private void Awake()
     {
-        //digitText.text = CurrentNumber.ToString();
         thisRectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
         canvasGroup = GetComponent<CanvasGroup>();
@@ -59,22 +58,22 @@ public class SquareDragging : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
 
     public void OnDrop(PointerEventData eventData)
     {
-        if (eventData.pointerDrag.GetComponent<SquareDragging>() != null)
+        if (eventData.pointerDrag.GetComponent<TileDragging>() != null)
         {
-            SquareDragging square = eventData.pointerDrag.GetComponent<SquareDragging>();
-
-            if (CurrentNumber == square.GetNumber())
+            TileDragging tile = eventData.pointerDrag.GetComponent<TileDragging>();
+           
+            if (CurrentNumber == tile.GetNumber())
             {
-                TileManager.Instance.RemoveTakenTilePosition(square.GetStartPosition());
-                Destroy(square.gameObject);
-                TileManager.Instance.ChangeScore();
+                TileManager.Instance.AddAvailableTilePosition(tile.GetStartPosition());
+                Destroy(tile.gameObject);
+                ScoreSystem.Instance.ChangeScoreAfterSumming();
                 ChangeText();
             }
             else
             {
-                square.BackToStartPosition();
+                tile.BackToStartPosition();
             }
-        }    
+        }
     }
 
     public int GetNumber()

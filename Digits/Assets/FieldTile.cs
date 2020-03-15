@@ -17,14 +17,21 @@ public class FieldTile : MonoBehaviour, IDropHandler
         if(eventData.pointerDrag!=null)
         {
             GameObject tile = eventData.pointerDrag;
+
+            if (!TileManager.Instance.IsTileAvailable(transform.localPosition))
+            {
+                tile.GetComponent<TileDragging>().BackToStartPosition();
+                return;
+            }
+
             tile.GetComponent<RectTransform>().anchoredPosition = rectTransform.anchoredPosition;
 
-            Vector3 tilePos= tile.GetComponent<SquareDragging>().GetStartPosition();
+            Vector3 tileStartPos= tile.GetComponent<TileDragging>().GetStartPosition();
 
-            if(tilePos!=transform.localPosition)
+            if (tileStartPos != transform.localPosition)
             {
-                TileManager.Instance.RemoveTakenTilePosition(tilePos);
-                TileManager.Instance.AddTilePosition(transform.localPosition);
+                TileManager.Instance.AddAvailableTilePosition(tileStartPos);
+                TileManager.Instance.RemoveAvailableTilePosition(transform.localPosition);
             }
         }
     }
