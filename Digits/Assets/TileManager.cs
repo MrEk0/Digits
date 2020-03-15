@@ -9,66 +9,63 @@ public class TileManager : MonoBehaviour
     [SerializeField] GameObject squarePrefab;
     [SerializeField] float timeBetweenSpawns = 10f;
 
-    private float timeSinceLastSpawn = Mathf.Infinity;
-    private float startNumberOfTile = 1;
-    private List<Vector3> tilePositions;
     private List<Vector3> availableTiles;
-    private float currentMaxNumber = 1;
+    private float timeSinceLastSpawn = Mathf.Infinity;
+
+    private int startNumberOfTile = 1;
+    private int currentMaxNumber = 1;
+    private int numberOfTiles;
 
     private void Awake()
     {
         Instance = this;
 
-        tilePositions = new List<Vector3>();
         availableTiles = new List<Vector3>();
 
         foreach (Transform child in transform)
         {
-            tilePositions.Add(child.localPosition);
+            availableTiles.Add(child.localPosition);
         }
-
-        availableTiles = tilePositions;
+        numberOfTiles = availableTiles.Count;
     }
 
     private void Update()
     {
         if (timeSinceLastSpawn > timeBetweenSpawns)
         {
-            Spawn();
+            SpawnBehaviour();
             timeSinceLastSpawn = 0;
         }
         timeSinceLastSpawn += Time.deltaTime;
     }
 
-    private void Spawn()
+    private void SpawnBehaviour()
     {
         if (availableTiles.Count == 0)
             return;
 
+        CheckFieldCapacity();
+        SpawnATile(startNumberOfTile);
+    }
+
+    public void SpawnATile(int number)
+    {
         int tileIndex = Random.Range(0, availableTiles.Count);
 
-        CheckFieldOccupancy();
-
         GameObject tile = Instantiate(squarePrefab, transform);
-        tile.transform.localPosition = tilePositions[tileIndex];
-        tile.GetComponent<TileDragging>().CurrentNumber = startNumberOfTile;
+        tile.transform.localPosition = availableTiles[tileIndex];
+        tile.GetComponent<TileDragging>().CurrentNumber = number;
 
-        availableTiles.RemoveAt(tileIndex);       
+        availableTiles.RemoveAt(tileIndex);
     }
 
-    public void SpawnBoughtTile(float number)
+    private void CheckFieldCapacity()
     {
-        Spawn();
-    }
-
-    private void CheckFieldOccupancy()
-    {
-        if (availableTiles.Count < tilePositions.Count / 2)
+        if (availableTiles.Count < numberOfTiles/2)
         {
             startNumberOfTile = Random.Range(1, currentMaxNumber);
         }
     }
-
 
     public void AddAvailableTilePosition(Vector3 tilePos)
     {
@@ -87,16 +84,13 @@ public class TileManager : MonoBehaviour
 
     }
 
-    public void SetMaxTileNumber(float number)
+    public void SetMaxTileNumber(int number)
     {
         if(number>currentMaxNumber)
         {
             currentMaxNumber = number;
         }
     }
-
-
-
 
     public bool IsTileAvailable(Vector3 tilePos)
     {
@@ -108,5 +102,10 @@ public class TileManager : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public bool IsThereAFreeTile()
+    {
+        return availableTiles.Count != 0;
     }
 }
