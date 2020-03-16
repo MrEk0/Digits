@@ -12,7 +12,7 @@ public class ScoreSystem : MonoBehaviour
     [SerializeField] float scoreOffset = 25f;
 
     private float currentScore = 0f;
-    private float additionalPoint = 0f;
+    private float additionalScorePoint = 0f;
     private float multiplyIndex = 1f;
     private int changeScoreCount = 0;
 
@@ -24,34 +24,39 @@ public class ScoreSystem : MonoBehaviour
         Instance = this;
 
         scoreText = GetComponent<TextMeshProUGUI>();
-        scoreText.text = "Score: " + currentScore.ToString();
+        SetScoreText();
 
         additionalPoints = new List<float>();
-        additionalPoint = firstPointNumber;
-        additionalPoints.Add(additionalPoint);
+        additionalScorePoint = firstPointNumber;
+        additionalPoints.Add(additionalScorePoint);
+    }
+
+    public void ChangeScoreAfterSumming(int tileNumber)
+    {
+        currentScore += GetAdditionalPoint(tileNumber);
+        SetScoreText();
+    }
+
+    private void SetScoreText()
+    {
+        scoreText.text = "Score: " + currentScore.ToString();
     }
 
     private float GetAdditionalPoint(int tileNumber)
     {
-        if(!additionalPoints.Contains(tileNumber))
+        if (!additionalPoints.Contains(tileNumber))
         {
-            additionalPoint += scoreOffset * multiplyIndex;
+            additionalScorePoint += scoreOffset * multiplyIndex;
             changeScoreCount++;
             if (changeScoreCount % 2 == 0)
             {
                 multiplyIndex *= 2;
             }
 
-            additionalPoints.Add(additionalPoint);
+            additionalPoints.Add(additionalScorePoint);
         }
 
-        return additionalPoints[tileNumber-1];
-    }
-
-    public void ChangeScoreAfterSumming(int tileNumber)
-    {
-        currentScore += GetAdditionalPoint(tileNumber);
-        scoreText.text = "Score: " + currentScore.ToString();    
+        return additionalPoints[tileNumber - 1];
     }
 
     public bool CanBuyNewTile(float price)

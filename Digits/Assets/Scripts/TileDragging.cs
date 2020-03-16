@@ -62,7 +62,7 @@ public class TileDragging : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
         {
             TileDragging tile = eventData.pointerDrag.GetComponent<TileDragging>();
            
-            if (CurrentNumber == tile.GetNumber())
+            if (CurrentNumber == tile.CurrentNumber)
             {
                 TileManager.Instance.AddAvailableTilePosition(tile.GetStartPosition());
                 Destroy(tile.gameObject);
@@ -74,11 +74,6 @@ public class TileDragging : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
                 tile.BackToStartPosition();
             }
         }
-    }
-
-    public int GetNumber()
-    {
-        return Convert.ToInt32(digitText.text);
     }
 
     public Vector3 GetStartPosition()
